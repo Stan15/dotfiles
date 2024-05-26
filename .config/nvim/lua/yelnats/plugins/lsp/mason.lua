@@ -16,7 +16,6 @@ return {
         "tailwindcss",
         "emmet_ls",
         "lua_ls",
-        "eslint_d",
       },
     })
   end
