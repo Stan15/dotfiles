@@ -22,6 +22,6 @@ return {
     })
 
     local keymap = vim.keymap
-    keymap.set("n", "<leader>ft", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+    keymap.set("n", "<leader>tt", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
   end
 }

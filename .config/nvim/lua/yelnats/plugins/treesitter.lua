@@ -1,4 +1,6 @@
 -- TODO: :InspectTree doesn't work
+-- HACK: something
+-- BUG: some other thing
 return {
   "nvim-treesitter/nvim-treesitter",
   event = { "BufReadPre", "BufNewFile" },
