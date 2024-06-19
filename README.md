@@ -25,7 +25,14 @@ then use GNU stow to create symlinks
 stow .
 ```
 
-## Optional tools
+## Optional tools Setup
+### Neovim
+Install the latest version of neovim (I believe this config requires above 0.9.0)
+```
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt-get update
+sudo apt-get install neovim
+```
 ### Tmux
 First install tmux
 ```
