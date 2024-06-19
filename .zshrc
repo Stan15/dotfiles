@@ -23,3 +23,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # echo 'eval "$(rbenv init -)"' >> ~/.zshrc
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+eval "$(starship init zsh)"
