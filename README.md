@@ -42,7 +42,7 @@ Next, source the tmux config file:
 tmux source-file ~/.config/tmux/tmux.conf
 ```
 
-Finally, enter a tmux session and install the plugins using `<leader>I` (leader is set to space in my tmux config)
+Finally, enter a tmux session and install the plugins using `<leader>I` (leader is set to the spacebar key in this tmux config)
 
 ### Starship
 Install starship with the following command, for a nice looking terminal prompt
