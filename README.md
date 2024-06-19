@@ -18,3 +18,9 @@ cd dotfiles
 ```
 then use GNU stow to create symlinks
 ```stow .```
+
+### Starship
+Optionally install starship with the following command, for a nice looking terminal prompt
+```
+curl -sS https://starship.rs/install.sh | sh
+```
