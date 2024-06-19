@@ -19,8 +19,21 @@ cd dotfiles
 then use GNU stow to create symlinks
 ```stow .```
 
+## Optional tools
+### Tmux
+First install tmux
+```sudo apt install tmux``
+
+Next install tpm (Tmux Plugin Manager)
+```git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm```
+
+Next, source the tmux config file:
+```tmux source-file ~/.config/tmux/tmux.conf```
+
+Finally, enter a tmux session and install the plugins using `<leader>I` (leader is set to space in my tmux config)
+
 ### Starship
-Optionally install starship with the following command, for a nice looking terminal prompt
+Install starship with the following command, for a nice looking terminal prompt
 ```
 curl -sS https://starship.rs/install.sh | sh
 ```
