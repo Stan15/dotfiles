@@ -29,3 +29,6 @@ fi
 # Set default editor to neovim
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+
+# Start ssh client
+eval $(ssh-agent)
