@@ -3,9 +3,9 @@
 local opt = vim.opt
 
 if not vim.env.SSH_TTY then
-  -- only set clipboard if not in ssh, to make sure the OSC 52
-  -- integration works automatically. Requires Neovim >= 0.10.0
-  opt.clipboard = "unnamedplus"
+	-- only set clipboard if not in ssh, to make sure the OSC 52
+	-- integration works automatically. Requires Neovim >= 0.10.0
+	opt.clipboard = "unnamedplus"
 end
 
 opt.relativenumber = true
@@ -25,6 +25,7 @@ opt.smartcase = true
 -- appearance
 opt.termguicolors = true
 opt.signcolumn = "auto"
+opt.cursorline = true
 
 -- split windows
 opt.splitright = true
