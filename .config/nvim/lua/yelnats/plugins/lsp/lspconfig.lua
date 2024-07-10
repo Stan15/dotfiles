@@ -60,6 +60,9 @@ return {
 				opts.desc = "Show documentation for what is under cursor"
 				keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
+				opts.desc = "Show documentation for function signature"
+				keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
+
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 			end,
