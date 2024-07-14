@@ -11,6 +11,13 @@ keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 keymap.set("n", "<leader>y", "")
 
+function insertFullPath()
+	local filepath = vim.fn.expand("%")
+	vim.fn.setreg("+", filepath) -- write to clippoard
+end
+
+keymap.set("n", "<leader>pc", insertFullPath, { noremap = true, silent = true })
+
 -- keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })
 -- keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })
 -- keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })

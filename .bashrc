@@ -116,7 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-eval "$(starship init bash)"
+# Start tmux on terminal launch
+[[ $- != *i* ]] && return # If not running interactively, do not do anything
+[[ -z "$TMUX" ]] && exec tmux
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -125,13 +127,11 @@ export NVM_DIR="$HOME/.nvm"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-
-# Start tmux on terminal launch
-[[ $- != *i* ]] && return # If not running interactively, do not do anything
-[[ -z "$TMUX" ]] && exec tmux
+eval "$(starship init bash)"
 
 # Personal aliases
 alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
+
 
 # Zymewire Aliases
 alias zydockerdown='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml down'
@@ -141,4 +141,6 @@ alias zydockerupall='cd ~/projects/zymewire-rails-app/; docker compose -f docker
 alias zydockerdownanno='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml down anno_ner'
 alias zystart='sudo service zymewire_rails_app restart'
 alias zyclean='cd ~/projects/zymewire-rails-app/; rails r script/admin_process_scripts/rspec_data_cleanups.rb'
+alias zycreateadmin='cd ~/projects/zymewire-rails-app/; rake admin_account:create_admin_account'
+alias zydockerlogin='docker login -u stanley https://docker-registry.zymewire.com'
 
