@@ -1,11 +1,24 @@
-function escape_literal_for_regex(text)
+function escape_string_for_regex(text)
 	local magic_chars = "().%+-*?[^$"
 	return text:gsub("[" .. magic_chars:gsub(".", "%%%1") .. "]", "%%%1")
+end
+
+function is_current_repo_in_blacklist(blacklist)
+	local current_repo_url = vim.fn.system("git config --get remote.origin.url")
+	for _, repo_name in pairs(blacklist) do
+		if string.match(current_repo_url, escape_string_for_regex(repo_name)) then
+			return true
+		end
+	end
+	return false
 end
 
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
+	dependencies = {
+		"pocco81/auto-save.nvim",
+	},
 	config = function()
 		local conform = require("conform")
 
@@ -27,15 +40,10 @@ return {
 				python = { "isort", "black" },
 			},
 			format_on_save = function()
-				local blacklisted_repos = { "zymewire/zymewire-rails-app.git" }
-
-				local current_repo_url = vim.api.nvim_exec("git config --get remote.origin.url", true)
-        for repo_name in blacklisted_repos do
-          if string.find(current_repo_url, repo_name) then
-            return nil
-          end
-        end
-
+				local blacklist = { "zymewire/zymewire-rails-app" }
+				if is_current_repo_in_blacklist(blacklist) then
+					return nil
+				end
 				return {
 					lsp_fallback = true,
 					async = false,
