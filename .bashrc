@@ -140,7 +140,11 @@ alias zydockerup='cd ~/projects/zymewire-rails-app/; docker compose -f docker-co
 alias zydockerupall='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml up -d'
 alias zydockerdownanno='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml down anno_ner'
 alias zystart='sudo service zymewire_rails_app restart'
+alias zydbmigrate='cd ~/projects/zymewire-rails-app/ && bundle exec rails db:create && rails db:migrate && rails sequel_db:migrate'
 alias zyclean='cd ~/projects/zymewire-rails-app/; rails r script/admin_process_scripts/rspec_data_cleanups.rb'
 alias zycreateadmin='cd ~/projects/zymewire-rails-app/; rake admin_account:create_admin_account'
 alias zydockerlogin='docker login -u stanley https://docker-registry.zymewire.com'
+alias zyfix='zydockerdown && zydockerupall && zydbmigrate && zyclean'
+
+# Zymewire configs
 
