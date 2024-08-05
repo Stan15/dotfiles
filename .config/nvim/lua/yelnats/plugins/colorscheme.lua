@@ -1,6 +1,9 @@
 return {
-  "folke/tokyonight.nvim",
-  config = function()
-    vim.cmd("colorscheme tokyonight")
-  end
+	{ "folke/tokyonight.nvim" },
+	{
+		"marko-cerovac/material.nvim",
+		config = function()
+			require("material").setup({})
+		end,
+	},
 }
