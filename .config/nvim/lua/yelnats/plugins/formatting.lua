@@ -1,3 +1,6 @@
+local repo_blacklist = { "zymewire/zymewire-rails-app" }
+local filetype_blacklist = { "" }
+
 function escape_string_for_regex(text)
 	local magic_chars = "().%+-*?[^$"
 	return text:gsub("[" .. magic_chars:gsub(".", "%%%1") .. "]", "%%%1")
@@ -40,8 +43,7 @@ return {
 				python = { "isort", "black" },
 			},
 			format_on_save = function()
-				local blacklist = { "zymewire/zymewire-rails-app" }
-				if is_current_repo_in_blacklist(blacklist) then
+				if is_current_repo_in_blacklist(repo_blacklist) then
 					return nil
 				end
 				return {
