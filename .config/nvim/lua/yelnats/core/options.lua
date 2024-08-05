@@ -26,6 +26,7 @@ opt.smartcase = true
 opt.termguicolors = true
 opt.signcolumn = "auto"
 opt.cursorline = true
+opt.fillchars = { eob = " " }
 
 -- split windows
 opt.splitright = true
