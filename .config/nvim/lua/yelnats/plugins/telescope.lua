@@ -1,4 +1,4 @@
-return { --dfd
+return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -11,7 +11,13 @@ return { --dfd
 		local actions = require("telescope.actions")
 
 		telescope.setup({
+			pickers = {
+				colorscheme = {
+					enable_preview = true,
+				},
+			},
 			defaults = {
+				initial_mode = "normal",
 				path_display = { "smart" },
 				mappings = {
 					i = {
@@ -32,5 +38,6 @@ return { --dfd
 		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 		keymap.set("n", "<leader>fp", "<cmd>Telescope resume<cr>", { desc = "Resume previous telescope search" })
 		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+		keymap.set("n", "<leader>fs", "<cmd>Telescope colorscheme<cr>", { desc = "Switch between colorschemes" })
 	end,
 }
