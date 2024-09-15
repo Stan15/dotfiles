@@ -1,5 +1,6 @@
 .git
 scripts
+font-install.sh
 
 ^/README.*
 ^/LICENSE.*
