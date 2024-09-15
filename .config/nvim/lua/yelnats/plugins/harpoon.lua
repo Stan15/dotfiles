@@ -34,5 +34,8 @@ return {
 		vim.keymap.set("n", "<leader>hl", function()
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end)
+    vim.keymap.set("n", "<leader>fh", function()
+      toggle_telescope(harpoon:list())
+    end)
 	end,
 }
