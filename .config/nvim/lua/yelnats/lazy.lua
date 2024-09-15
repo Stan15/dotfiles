@@ -11,11 +11,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+function plugin_imports()
+  
+end
+
 require("lazy").setup({
 	{ import = "yelnats.plugins" },
 	{ import = "yelnats.plugins.lsp" },
 	{ import = "yelnats.plugins.dap" },
 	{ import = "yelnats.plugins.dap.languages" },
+	{ import = "yelnats.plugins.ui" },
+	{ import = "yelnats.plugins.ai" },
+	{ import = "yelnats.plugins.future-use" },
 }, {
 	change_detection = {
 		notify = false,

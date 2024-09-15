@@ -43,14 +43,15 @@ return {
 				python = { "isort", "black" },
 			},
 			format_on_save = function()
-				if is_current_repo_in_blacklist(repo_blacklist) then
-					return nil
-				end
-				return {
-					lsp_fallback = true,
-					async = false,
-					timeout_ms = 1000,
-				}
+				return nil
+				-- if is_current_repo_in_blacklist(repo_blacklist) then
+				-- 	return nil
+				-- end
+				-- return {
+				-- 	lsp_fallback = true,
+				-- 	async = false,
+				-- 	timeout_ms = 1000,
+				-- }
 			end,
 		})
 
