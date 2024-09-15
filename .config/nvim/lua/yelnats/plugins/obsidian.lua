@@ -13,13 +13,16 @@ return {
 		require("obsidian").setup({
 			workspaces = {
 				{
-					name = "personal",
-					path = "~/vaults/personal",
-				},
-				{
 					name = "work",
 					path = "~/vaults/work",
 				},
+				{
+					name = "personal",
+					path = "~/vaults/personal",
+				},
+			},
+			daily_notes = {
+				folder = "notes/dailies",
 			},
 			mappings = {
 				["<cr>"] = {
@@ -30,5 +33,12 @@ return {
 				},
 			},
 		})
+
+		vim.keymap.set("n", "<leader>ow", "<cmd>ObsidianWorkspace<cr>")
+		vim.keymap.set("n", "<leader>of", "<cmd>ObsidianSearch<cr>")
+		vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>")
+		vim.keymap.set({ "n", "v" }, "<leader>ox", "<cmd>ObsidianExtractNote<cr>")
+		vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<cr>")
+		vim.keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>")
 	end,
 }

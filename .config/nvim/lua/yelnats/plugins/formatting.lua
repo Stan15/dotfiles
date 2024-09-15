@@ -43,7 +43,7 @@ return {
 				python = { "isort", "black" },
 			},
 			format_on_save = function()
-				return nil
+				return false
 				-- if is_current_repo_in_blacklist(repo_blacklist) then
 				-- 	return nil
 				-- end
@@ -55,7 +55,7 @@ return {
 			end,
 		})
 
-		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+		vim.keymap.set({ "n", "v" }, "<leader>pf", function()
 			conform.format({
 				lsp_fallback = true,
 				async = false,

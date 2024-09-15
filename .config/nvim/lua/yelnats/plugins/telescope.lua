@@ -17,7 +17,7 @@ return {
 				},
 			},
 			defaults = {
-				initial_mode = "normal",
+				initial_mode = "insert",
 				path_display = { "smart" },
 				mappings = {
 					i = {
@@ -37,6 +37,7 @@ return {
 		keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Grep search in cwd" })
 		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 		keymap.set("n", "<leader>fp", "<cmd>Telescope resume<cr>", { desc = "Resume previous telescope search" })
+		keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Find marks" })
 		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 		keymap.set("n", "<leader>fs", "<cmd>Telescope colorscheme<cr>", { desc = "Switch between colorschemes" })
 	end,

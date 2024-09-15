@@ -134,6 +134,7 @@ alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -del
 
 
 # Zymewire Aliases
+alias zyassetfix='cd ~/projects/zymewire-rails-app/; bundle install && rails assets:clobber && rm -rf node_modules && yarn install'
 alias zydockerdown='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml down'
 alias zydockerpull='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml pull'
 alias zydockerup='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml up -d mongodb elasticsearch redis postgres'
@@ -144,7 +145,7 @@ alias zydbmigrate='cd ~/projects/zymewire-rails-app/ && bundle exec rails db:cre
 alias zyclean='cd ~/projects/zymewire-rails-app/; rails r script/admin_process_scripts/rspec_data_cleanups.rb'
 alias zycreateadmin='cd ~/projects/zymewire-rails-app/; rake admin_account:create_admin_account'
 alias zydockerlogin='docker login -u stanley https://docker-registry.zymewire.com'
-alias zyfix='zydockerdown && zydockerupall && zydbmigrate && zyclean'
+alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydbmigrate && (zyclean || zyclean)' # try zyclean again if it fails the first time
 
 # Zymewire configs
 
