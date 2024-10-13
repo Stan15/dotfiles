@@ -43,6 +43,7 @@ Next install tpm (Tmux Plugin Manager)
 ```
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
+Restart your terminal session, or create a new terminal session.
 
 Next, source the tmux config file:
 ```
