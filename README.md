@@ -35,7 +35,13 @@ sudo apt-get install neovim
 ```
 
 For a couple of the default language servers to be installed, you need to have npm installed.
+
+#### LSPs
 You can install npm either [through your package manager](https://nodejs.org/en/download/package-manager/all), or your preferred method (using nvm, e.t.c)
+
+#### Other dependencies
+- ripgrep, for telescope grep search
+
 
 ### Tmux
 First install tmux
