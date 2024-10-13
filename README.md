@@ -33,6 +33,9 @@ sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim
 ```
+
+For a couple of the default language servers, you need to install npm, either [through your package manager](https://nodejs.org/en/download/package-manager/all), or your preferred method (using nvm, e.t.c)
+
 ### Tmux
 First install tmux
 ```
