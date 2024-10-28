@@ -1,5 +1,5 @@
 return {
-	"epwalsh/obsidian.nvim",
+	"Stan15/obsidian.nvim",
 	version = "*",
 	-- lazy = true,
 	-- ft = "markdown",
@@ -32,6 +32,7 @@ return {
 					opts = { buffer = true, expr = true },
 				},
 			},
+      open_notes_in = "float",
 		})
 
 		vim.keymap.set("n", "<leader>ow", "<cmd>ObsidianWorkspace<cr>")

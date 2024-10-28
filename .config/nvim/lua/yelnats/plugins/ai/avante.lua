@@ -11,6 +11,6 @@ return {
     "MunifTanjim/nui.nvim",
     "nvim-tree/nvim-web-devicons",
     "HakonHarnes/img-clip.nvim",
-    "MeanderingProgrammer/render-markdown.nvim"
+    "MeanderingProgrammer/render-markdown.nvim", -- make sure to include 'Avante' in supported markdown file types for render-markdown in its config
   }
 }
