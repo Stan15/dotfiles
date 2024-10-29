@@ -150,3 +150,4 @@ alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydb
 
 # Zymewire configs
 
+. "$HOME/.cargo/env"
