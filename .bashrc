@@ -148,6 +148,3 @@ alias zydockerlogin='docker login -u stanley https://docker-registry.zymewire.co
 alias zyattributemap='bundle exec rake attributes:metadata_sync && bundle exec rake attributes:mapping_sync'
 alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydbmigrate && zyattributemap && zyclean'
 
-# Zymewire configs
-
-. "$HOME/.cargo/env"
