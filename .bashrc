@@ -127,11 +127,6 @@ export NVM_DIR="$HOME/.nvm"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-eval "$(starship init bash)"
-
-# Personal aliases
-alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
-
 
 # Zymewire Aliases
 alias zyassetfix='cd ~/projects/zymewire-rails-app/; bundle install && rails assets:clobber && rm -rf node_modules && yarn install'
@@ -147,6 +142,7 @@ alias zycreateadmin='cd ~/projects/zymewire-rails-app/; rake admin_account:creat
 alias zydockerlogin='docker login -u stanley https://docker-registry.zymewire.com'
 alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydbmigrate && (zyclean || zyclean)' # try zyclean again if it fails the first time
 
-# Zymewire configs
+source ~/.shared_shellrc
 
 . "$HOME/.cargo/env"
+. "/Users/stan/.deno/env"
