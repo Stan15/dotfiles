@@ -1,4 +1,16 @@
-eval "$(starship init bash)"
+#!/bin/sh
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/git_personal
+
+# Startup starship
+if [[ "$SHELL" == *"zsh"* ]]; then
+    eval "$(starship init zsh)"
+elif [[ "$SHELL" == *"bash"* ]]; then
+    eval "$(starship init bash)"
+else
+    echo "Unsupported shell for starship initialization"
+fi
 
 # Personal aliases
 alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'

@@ -159,3 +159,7 @@ alias llmprotostuff='bin/rails llm_completion_proto:generate'
 alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydbmigrate && zyattributemap && llmprotostuff && zyclean'
 alias zmvenv='ln -s ~/projects/support_files/rails_env_variables.env ./.env'
 
+source ~/.shared_shellrc
+
+. "$HOME/.cargo/env"
+. "/Users/stan/.deno/env"
