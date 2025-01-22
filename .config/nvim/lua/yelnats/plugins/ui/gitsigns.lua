@@ -8,7 +8,6 @@ return {
 			local function map(mode, l, r, desc)
 				vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
 			end
-
 			-- Navigation
 			-- map("n", "")
 		end,
