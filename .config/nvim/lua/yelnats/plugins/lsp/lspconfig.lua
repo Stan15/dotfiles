@@ -101,6 +101,7 @@ return {
 						"scss",
 						"less",
 						"svelte",
+            "deno",
 					},
 				})
 			end,
