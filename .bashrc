@@ -124,27 +124,38 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
 
 eval "$(starship init bash)"
+
+# Personal functions
+function change_industry() {
+  bundle exec rails qa_account:change_industry\[$@\]
+}
 
 # Personal aliases
 alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
 
-
 # Zymewire Aliases
-alias zyassetfix='cd ~/projects/zymewire-rails-app/; bundle install && rails assets:clobber && rm -rf node_modules && yarn install'
-alias zydockerdown='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml down'
-alias zydockerpull='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml pull'
-alias zydockerup='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml up -d mongodb elasticsearch redis postgres'
-alias zydockerupall='cd ~/projects/zymewire-rails-app/; sudo docker compose -f docker-compose-dev-infra.yml up -d'
-alias zydockerdownanno='cd ~/projects/zymewire-rails-app/; docker compose -f docker-compose-dev-infra.yml down anno_ner'
+alias zw='cd ~/projects/zymewire-rails-app.git/'
+alias be='bundle exec'
+alias ztestold='SF_BOOTSTRAP=false RAILS_ENV=test_docker be rspec'
+alias ztest='SF_BOOTSTRAP=false be rspec'
+alias headspec='HEADED=true ztest'
+alias zyassetfix='bundle install && rails assets:clobber && rm -rf node_modules && yarn install'
+alias zydockerdown='docker compose -f docker-compose-dev-infra.yml down'
+alias zydockerpull='docker compose -f docker-compose-dev-infra.yml pull'
+alias zydockerup='docker compose -f docker-compose-dev-infra.yml up -d mongodb elasticsearch redis postgres'
+alias zydockerupall='sudo docker compose -f docker-compose-dev-infra.yml up -d'
+alias zydockerdownanno='docker compose -f docker-compose-dev-infra.yml down anno_ner'
 alias zystart='sudo service zymewire_rails_app restart'
-alias zydbmigrate='cd ~/projects/zymewire-rails-app/ && bundle exec rails db:create && rails db:migrate && rails sequel_db:migrate'
-alias zyclean='cd ~/projects/zymewire-rails-app/; rails r script/admin_process_scripts/rspec_data_cleanups.rb'
-alias zycreateadmin='cd ~/projects/zymewire-rails-app/; rake admin_account:create_admin_account'
+alias zydbmigrate='bundle exec rails db:create && rails db:migrate && rails sequel_db:migrate'
+alias zyclean='rails r script/admin_process_scripts/rspec_data_cleanups.rb'
+alias zycreateadmin='rake admin_account:create_admin_account'
 alias zydockerlogin='docker login -u stanley https://docker-registry.zymewire.com'
-alias zyattributemap='bundle exec rake attributes:metadata_sync && bundle exec rake attributes:mapping_sync'
-alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydbmigrate && zyattributemap && zyclean'
+alias zyattributemap='bundle exec rake attributes:remove_old_attribute_meta_and_mappings && bundle exec rake attributes:metadata_sync && bundle exec rake attributes:mapping_sync'
+alias llmprotostuff='bin/rails llm_completion_proto:generate'
+alias zyfix='zyassetfix && zydockerdown && zydockerpull && zydockerupall && zydbmigrate && zyattributemap && llmprotostuff && zyclean'
+alias zmvenv='ln -s ~/projects/support_files/rails_env_variables.env ./.env'
 
