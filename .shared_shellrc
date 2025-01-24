@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Personal aliases
+alias python='$(which python3)'
+alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
+alias dockerstopall='docker stop $(docker ps -aq)'
+
+# start up ssh-agent and add personal github key
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/git_personal
 
@@ -11,7 +17,3 @@ elif [[ "$SHELL" == *"bash"* ]]; then
 else
     echo "Unsupported shell for starship initialization"
 fi
-
-# Personal aliases
-alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
-
