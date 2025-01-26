@@ -1,6 +1,7 @@
 .git
 scripts
 font-install.sh
+.config/tmux/plugins
 
 ^/README.*
 ^/LICENSE.*
