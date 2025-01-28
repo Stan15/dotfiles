@@ -1,16 +1,27 @@
 #!/bin/sh
 
+source ./scripts/load_dotfiles_env.sh ./dotfiles.toml
+
+# start up ssh-agent and add personal github key
+eval "$(ssh-agent -s)" > /dev/null
+
+while IFS= read -r key_path; do
+  expanded_key_path=${key_path/#\~/$HOME}
+  ssh-add "$expanded_key_path" 2>&1 | grep -v "Identity added"
+done < <(echo "$AUTOLOAD_SSH_KEYS" | yq -r '.[]')
+
 # Personal aliases
 alias python='$(which python3)'
 alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
 alias dockerstopall='docker stop $(docker ps -aq)'
 
-# start up ssh-agent and add personal github key
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/git_personal
-
 # Startup starship
-if [[ "$SHELL" == *"zsh"* ]]; then
+if ! command -v starship &> /dev/null; then
+    echo -e "\033[1;34m[INFO]\033[0m \033[1;32mStarship\033[0m is not installed."
+    echo -e "🚀 You might want to install it for a better-looking terminal experience!"
+    echo -e "\033[1;33mInstall it using:\033[0m \033[1;36mcurl -sS https://starship.rs/install.sh | sh\033[0m"
+    echo -e "Or check out more at \033[4;34mhttps://starship.rs\033[0m"
+elif [[ "$SHELL" == *"zsh"* ]]; then
     eval "$(starship init zsh)"
 elif [[ "$SHELL" == *"bash"* ]]; then
     eval "$(starship init bash)"
