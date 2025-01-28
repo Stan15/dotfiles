@@ -1,5 +1,6 @@
 .git
 scripts
+work
 font-install.sh
 .config/tmux/plugins
 

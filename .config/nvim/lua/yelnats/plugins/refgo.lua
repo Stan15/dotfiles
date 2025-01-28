@@ -5,7 +5,6 @@ return {
 		vim.keymap.set("n", "<leader>ry", function()
 			vim.cmd("RefCopy")
 			local reference = vim.fn.getreg('"') -- Get the reference from the default register
-      print(reference)
 			vim.fn.setreg("+", reference) -- Copy the reference to the system clipboard
 		end, { noremap = true, silent = true })
 		vim.keymap.set(
