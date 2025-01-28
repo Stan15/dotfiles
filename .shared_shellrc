@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export dotfiles_path=$(dirname $(realpath "$0"))
+pushd $dotfiles_path > /dev/null || exit 1
+
 source ./scripts/load_dotfiles_env.sh ./dotfiles.toml
 
 # start up ssh-agent and add personal github key
@@ -28,3 +31,5 @@ elif [[ "$SHELL" == *"bash"* ]]; then
 else
     echo "Unsupported shell for starship initialization"
 fi
+
+popd > /dev/null
