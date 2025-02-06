@@ -1,9 +1,9 @@
 #!/bin/sh
 
-export dotfiles_path=$(dirname $(realpath "$0"))
+export dotfiles_path=$(dirname $(realpath "${BASH_SOURCE[0]}"))
 pushd $dotfiles_path > /dev/null || exit 1
 
-source ./scripts/load_dotfiles_env.sh ./dotfiles.toml
+source $dotfiles_path/scripts/load_dotfiles_env.sh $dotfiles_path/dotfiles.toml
 
 # start up ssh-agent and add personal github key
 eval "$(ssh-agent -s)" > /dev/null
@@ -12,6 +12,14 @@ while IFS= read -r key_path; do
   expanded_key_path=${key_path/#\~/$HOME}
   ssh-add "$expanded_key_path" 2>&1 | grep -v "Identity added"
 done < <(echo "$AUTOLOAD_SSH_KEYS" | yq -r '.[]')
+
+while IFS= read -r shellrc_path; do
+  current_script_path=$(realpath "${BASH_SOURCE[0]}")
+  real_shellrc_path=$(echo $(eval "realpath ${shellrc_path}"))
+  if [[ "$real_shellrc_path" != "$current_script_path" ]]; then
+    source "$real_shellrc_path"
+  fi
+done < <(echo "$SHELL_CONFIGS" | yq -r '.[]')
 
 # Personal aliases
 alias python='$(which python3)'

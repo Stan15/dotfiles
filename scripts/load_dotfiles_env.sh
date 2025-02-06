@@ -15,7 +15,7 @@ load_env() {
   fi
 
   # Read the current environment from the config file
-  local current_env=$(yq -r ".default.$config_key_for_current_env" "$config_file")
+  current_env=$(yq -r ".default.$config_key_for_current_env" "$config_file")
 
   if [[ "$current_env" == "null" || -z "$current_env" ]]; then
     printf "\033[1;31m❌ Error:\033[0m Missing or invalid configuration in '\033[1;33m%s\033[0m'.\n\n" "$config_file" >&2
@@ -82,7 +82,7 @@ install_yq() {
 }
 
 # Set default config file if no argument is provided
-local CONFIG_FILE="${1:-./dotfiles.toml}"
+CONFIG_FILE="${1:-./dotfiles.toml}"
 if [[ -f "$CONFIG_FILE" ]]; then
   load_env $CONFIG_FILE
 else
