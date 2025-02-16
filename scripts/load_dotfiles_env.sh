@@ -32,7 +32,7 @@ load_env() {
     export "$line"
   done < <(yq -r "(.default * .[\"$current_env\"]) | to_entries | .[] | \"\(.key)=\(.value | @json)\"" "$config_file")
 
-  echo "✅ dotfiles environment $current_env loaded."
+  echo "⚙️ dotfiles environment $current_env loaded."
 
   return 0
 }
