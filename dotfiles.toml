@@ -3,7 +3,7 @@ current_env='personal'
 
 [personal]
 AUTOLOAD_SSH_KEYS=['~/.ssh/git_personal']
-SHELL_CONFIGS=[]
+SHELL_CONFIGS=['$dotfiles_path/personal/.personal_shellrc']
 
 [work]
 AUTOLOAD_SSH_KEYS=['~/.ssh/git_personal', '~/.ssh/bitbucket_work']
