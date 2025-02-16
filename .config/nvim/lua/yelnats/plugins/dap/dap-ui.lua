@@ -2,12 +2,14 @@ return {
 	"rcarriga/nvim-dap-ui",
 	dependencies = {
 		"mfussenegger/nvim-dap",
-		"nvim-neotest/nvim-nio",
+    "nvim-neotest/nvim-nio",
 	},
 	config = function()
-		local dapui = require("dapui").setup()
+		local dapui = require("dapui")
+    dapui.setup()
 
-		-- vim.keymap.set({ "n", "v" }, "<leader>d?", dapui.eval, { desc = "Evaluate selected expression" })
+		vim.keymap.set({ "n", "v" }, "<leader>d?", dapui.eval, { desc = "Evaluate selected expression" })
+    vim.keymap.set({ "n", "v" }, "<leader>dr", function() dapui.open({ reset = true}) end)
 
 		local dap = require("dap")
 		dap.listeners.before.attach.dapui_config = function()
