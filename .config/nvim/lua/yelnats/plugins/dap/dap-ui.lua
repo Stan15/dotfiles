@@ -5,11 +5,11 @@ return {
 		"nvim-neotest/nvim-nio",
 	},
 	config = function()
-		local dapui = require("dapui").setup()
+		local dap, dapui = require("dap"), require("dapui")
+    dapui.setup()
 
-		-- vim.keymap.set({ "n", "v" }, "<leader>d?", dapui.eval, { desc = "Evaluate selected expression" })
+		vim.keymap.set({ "n", "v" }, "<leader>d?", dapui.eval, { desc = "Evaluate selected expression" })
 
-		local dap = require("dap")
 		dap.listeners.before.attach.dapui_config = function()
 			dapui.open()
 		end
