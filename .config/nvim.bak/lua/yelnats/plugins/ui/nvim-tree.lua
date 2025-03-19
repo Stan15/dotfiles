@@ -22,7 +22,7 @@ return {
 		})
 
 		local keymap = vim.keymap
-		-- keymap.set("n", "<leader>tt", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-		-- keymap.set("n", "<leader>tf", "<cmd>NvimTreeFindFile<CR>", { desc = "Find current file in file tree" })
+		keymap.set("n", "<leader>tt", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+		keymap.set("n", "<leader>tf", "<cmd>NvimTreeFindFile<CR>", { desc = "Find current file in file tree" })
 	end,
 }

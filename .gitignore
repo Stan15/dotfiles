@@ -1,2 +1,3 @@
 .config/tmux/plugins
 .lume_shellrc
+!.config/nvim.bak

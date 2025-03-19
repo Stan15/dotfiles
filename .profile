@@ -29,3 +29,4 @@ fi
 # Set default editor to neovim
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+. "/Users/stan/.deno/env"

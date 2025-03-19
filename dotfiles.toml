@@ -1,5 +1,5 @@
 [default]
-current_env='work'
+current_env='personal'
 
 [personal]
 AUTOLOAD_SSH_KEYS=['~/.ssh/git_personal']

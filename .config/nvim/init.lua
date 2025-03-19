@@ -1,2 +1,2 @@
-require("yelnats.core")
-require("yelnats.lazy")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
