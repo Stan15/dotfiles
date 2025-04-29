@@ -59,4 +59,10 @@ else
     echo "Unsupported shell for starship initialization"
 fi
 
+export PATH="$HOME/bin:$PATH"
+
+export ASDF_DATA_DIR="/home/stan/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+
 popd > /dev/null

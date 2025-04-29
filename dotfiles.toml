@@ -1,10 +1,10 @@
 [default]
-current_env='personal'
+current_env = 'work'
 
 [personal]
-AUTOLOAD_SSH_KEYS=['~/.ssh/git_personal']
-SHELL_CONFIGS=['$dotfiles_path/personal/.personal_shellrc']
+AUTOLOAD_SSH_KEYS = ['~/.ssh/git_personal']
+SHELL_CONFIGS = ['$dotfiles_path/personal/.personal_shellrc']
 
 [work]
-AUTOLOAD_SSH_KEYS=['~/.ssh/git_personal', '~/.ssh/bitbucket_work']
-SHELL_CONFIGS=['$dotfiles_path/work/.lume_shellrc']
+AUTOLOAD_SSH_KEYS = ['~/.ssh/git_personal', '~/.ssh/bitbucket_work']
+SHELL_CONFIGS = ['$dotfiles_path/work/.lume_shellrc']
