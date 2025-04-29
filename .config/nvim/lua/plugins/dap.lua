@@ -30,4 +30,11 @@ return {
       end
     end,
   },
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "suketa/nvim-dap-ruby",
+      { "theHamsta/nvim-dap-virtual-text", opts = {} },
+    },
+  },
 }

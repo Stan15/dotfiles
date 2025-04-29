@@ -15,8 +15,6 @@ end
 return {
   "Stan15/obsidian.nvim",
   version = "*",
-  -- lazy = true,
-  -- ft = "markdown",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp",
@@ -37,14 +35,6 @@ return {
       },
       daily_notes = {
         folder = "notes/dailies",
-      },
-      mappings = {
-        ["<cr>"] = {
-          action = function()
-            return require("obsidian").util.smart_action()
-          end,
-          opts = { buffer = true, expr = true },
-        },
       },
       open_notes_in = "float",
       follow_url_func = function(url)
