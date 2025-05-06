@@ -5,7 +5,8 @@
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.lang.tailwind",
     "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.test.core"
+    "lazyvim.plugins.extras.test.core",
+    "lazyvim.plugins.extras.util.gitui"
   ],
   "news": {
     "NEWS.md": "10960"

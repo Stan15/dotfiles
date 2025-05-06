@@ -11,3 +11,14 @@ map("n", "<C-l>", "<cmd>lua require('tmux').move_right()<cr>", { desc = "Go to R
 
 -- toggle dap ui (but reset view on open)
 map("n", "<leader>dU", "<cmd>lua require('dapui').open({reset=true})<cr>", { desc = "Dap UI (reset)" })
+
+-- project management
+map("n", "<leader>mm", function()
+  require("linear-nvim").show_assigned_issues()
+end)
+map({ "n", "v" }, "<leader>mc", function()
+  require("linear-nvim").create_issue()
+end)
+map("n", "<leader>ms", function()
+  require("linear-nvim").show_issue_details()
+end)
