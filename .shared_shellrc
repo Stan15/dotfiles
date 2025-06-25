@@ -59,6 +59,15 @@ else
     echo "Unsupported shell for starship initialization"
 fi
 
+# for viewing images in neovim
+# if ! command -v magick >/dev/null 2>&1; then
+#   if command -v sudo >/dev/null 2>&1; then
+#     sudo apt-get update && sudo apt-get install -y imagemagick
+#   else
+#     echo "ImageMagick not found and sudo not available. Please install ImageMagick manually."
+#   fi
+# fi
+#
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="$HOME/bin:$PATH"
 
