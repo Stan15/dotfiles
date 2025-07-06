@@ -1,16 +1,22 @@
-return {
-  "greggh/claude-code.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim", -- Required for git operations
-  },
-  config = function()
-    require("claude-code").setup({
-      keymaps = {
-        toggle = {
-          normal = "<leader>ai",
-          terminal = "<leader>ai",
-        },
-      },
-    })
-  end,
-}
+return {}
+-- return {
+--   "greggh/claude-code.nvim",
+--   dependencies = {
+--     "nvim-lua/plenary.nvim", -- Required for git operations
+--   },
+--   config = function()
+--     require("claude-code").setup({
+--       keymaps = {
+--         toggle = {
+--           normal = "<C-,>",
+--           terminal = "<C-,>",
+--           variants = {
+--             continue = "<C-,>",
+--             resume = "<C-r>",
+--           },
+--         },
+--         scrolling = true,
+--       },
+--     })
+--   end,
+-- }

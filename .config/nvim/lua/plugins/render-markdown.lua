@@ -5,6 +5,6 @@ return {
     "echasnovski/mini.nvim",
   },
   opts = {
-    file_types = { "markdown", "Avante" },
+    file_types = { "markdown", "Avante", "codecompanion" },
   },
 }
