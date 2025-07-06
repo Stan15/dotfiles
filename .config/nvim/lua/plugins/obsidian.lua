@@ -37,6 +37,16 @@ return {
         folder = "notes/dailies",
       },
       open_notes_in = "float",
+      ui = {
+        enable = true,
+        checkboxes = {
+          [" "] = { char = "󰄱", order = 1, hl_group = "ObsidianTodo" },
+          ["x"] = { char = "", order = 2, hl_group = "ObsidianDone" },
+          -- [">"] = { char = "", order = 3, hl_group = "ObsidianRightArrow" },
+          -- ["~"] = { char = "󰰱", order = 4, hl_group = "ObsidianTilde" },
+          -- ["!"] = { char = "", order = 5,hl_group = "ObsidianImportant" },
+        },
+      },
       follow_url_func = function(url)
         vim.ui.open(url)
       end,
