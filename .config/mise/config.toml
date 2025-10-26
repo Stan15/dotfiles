@@ -1,0 +1,3 @@
+[tools]
+bob = "latest"
+neovim = "nightly"
