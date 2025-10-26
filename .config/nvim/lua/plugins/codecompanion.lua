@@ -38,7 +38,7 @@ return {
       end,
     },
     extensions = {
-      spinner = {}
-    }
+      spinner = {},
+    },
   },
 }
