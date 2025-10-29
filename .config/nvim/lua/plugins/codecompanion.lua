@@ -9,6 +9,9 @@ return {
     -- Progress options optional
     "j-hui/fidget.nvim",
     "franco-ruggeri/codecompanion-spinner.nvim",
+    "ravitemer/codecompanion-history.nvim",
+    "franco-ruggeri/codecompanion-lualine.nvim",
+    "minusfive/codecompanion-agent-rules",
   },
   keys = {
     { "<leader>aa", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Chat", mode = { "n", "v" } },
@@ -38,7 +41,16 @@ return {
       end,
     },
     extensions = {
-      spinner = {}
-    }
+      spinner = {
+        enabled = true,
+      },
+      history = {
+        enabled = true,
+        opts = {},
+      },
+      agent_rules = {
+        enabled = true,
+      },
+    },
   },
 }
