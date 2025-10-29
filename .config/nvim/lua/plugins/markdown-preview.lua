@@ -6,7 +6,7 @@ return {
   -- build = function()
   --   vim.fn["mkdp#util#install"]()
   -- end,
-  build = "cd app && yarn install",
+  build = "cd app && npm install",
   config = function()
     vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>")
     vim.g.mkdp_auto_close = 0

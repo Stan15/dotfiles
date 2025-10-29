@@ -79,9 +79,13 @@ fi
 #   fi
 # fi
 #
+
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="$HOME/bin:$PATH"
-
 alias sudovim='sudo $(asdf which nvim)'
 
+# Activate mise for environment management
+eval "$(~/.local/bin/mise activate bash)"
+
 popd > /dev/null
+

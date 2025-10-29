@@ -1,8 +1,18 @@
-.git
-scripts
-work
-font-install.sh
-.config/tmux/plugins
+# Ignore version control
+\.git
+\.gitignore
+\.gitmodules
 
-^/README.*
-^/LICENSE.*
+# Ignore documentation and config files
+\.stow-local-ignore
+README\.md
+dotfiles\.toml
+
+# Ignore scripts and installation files
+font-install\.sh
+starship\.toml
+scripts
+
+# Ignore environment-specific directories
+personal
+work

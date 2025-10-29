@@ -22,3 +22,18 @@ end)
 map("n", "<leader>ms", function()
   require("linear-nvim").show_issue_details()
 end)
+
+-- images
+local image_utils = require("utils.images")
+map("n", "<leader>io", image_utils.open, { desc = "[P](macOS) Open image under cursor in Preview" })
+map("n", "<leader>if", image_utils.open_in_finder, { desc = "[P](macOS) Open image under cursor in Finder" })
+map("n", "<leader>id", image_utils.delete_file, { desc = "[P](macOS) Delete image file under cursor" })
+
+-- utils
+local stansutils = require("stansutils")
+map({ "n", "v" }, "<leader>yp", function()
+  stansutils.copy_file_reference({ full = false, line = true })
+end)
+map({ "n", "v" }, "<leader>yfp", function()
+  stansutils.copy_file_reference({ full = true, line = true })
+end)
