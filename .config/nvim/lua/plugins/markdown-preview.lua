@@ -8,7 +8,6 @@ return {
   -- end,
   build = "cd app && npm install",
   config = function()
-    vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>")
     vim.g.mkdp_auto_close = 0
   end,
 }

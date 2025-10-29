@@ -34,6 +34,35 @@ local stansutils = require("stansutils")
 map({ "n", "v" }, "<leader>yp", function()
   stansutils.copy_file_reference({ full = false, line = true })
 end)
-map({ "n", "v" }, "<leader>yfp", function()
+map({ "n", "v" }, "<leader>yP", function()
   stansutils.copy_file_reference({ full = true, line = true })
 end)
+
+-- render
+local render_keymap = "<leader>r"
+-- markdown-preview
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(
+      0,
+      "n",
+      render_keymap,
+      "<cmd>MarkdownPreviewToggle<cr>",
+      { desc = "Render Markdown", noremap = true, silent = true }
+    )
+  end,
+})
+-- plantuml-previewer
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "plantuml",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(
+      0,
+      "n",
+      render_keymap,
+      "<cmd>PlantumlOpen<cr>",
+      { desc = "Render PlantUML", noremap = true, silent = true }
+    )
+  end,
+})

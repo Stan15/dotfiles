@@ -45,6 +45,23 @@ alias python='$(which python3)'
 alias nvimdeleteswp='find ~/.local/state/nvim/ -type f -name "*.sw[klmnop]" -delete'
 alias dockerstopall='docker stop $(docker ps -aq)'
 
+# Initialize tools for supported shells
+if [[ "$SHELL" == *"zsh"* ]]; then
+    # Mise makes other commands available, so has to be activated first before we check whether other commands are available!!!
+    command -v mise &> /dev/null && eval "$(~/.local/bin/mise activate zsh)"
+
+    command -v starship &> /dev/null && eval "$(starship init zsh)"
+    command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+elif [[ "$SHELL" == *"bash"* ]]; then
+    # Mise makes other commands available, so has to be activated first before we check whether other commands are available!!!
+    command -v ~/.local/bin/mise &> /dev/null && eval "$(~/.local/bin/mise activate bash)"
+
+    command -v starship &> /dev/null && eval "$(starship init bash)"
+    command -v zoxide &> /dev/null && eval "$(zoxide init bash)"
+else
+    echo "Unsupported shell. Some functionalities could not be initialized."
+fi
+
 # Check tools and show install messages
 if ! command -v starship &> /dev/null; then
     echo -e "\033[1;34m[INFO]\033[0m \033[1;32mStarship\033[0m is not installed."
@@ -59,16 +76,15 @@ if ! command -v zoxide &> /dev/null; then
     echo -e "Check out installation instructions at \033[4;34mhttps://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation\033[0m"
 fi
 
-# Initialize tools for supported shells
-if [[ "$SHELL" == *"zsh"* ]]; then
-    command -v starship &> /dev/null && eval "$(starship init zsh)"
-    command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
-elif [[ "$SHELL" == *"bash"* ]]; then
-    command -v starship &> /dev/null && eval "$(starship init bash)"
-    command -v zoxide &> /dev/null && eval "$(zoxide init bash)"
-else
-    echo "Unsupported shell. Some functionalities could not be initialized."
+if ! command -v ~/.local/bin/mise &> /dev/null; then
+    echo -e "\033[1;34m[INFO]\033[0m \033[1;32mMise\033[0m is not installed."
+    echo -e "🚀 You might want to install it for managing dev tools and environments!"
+    echo -e "\033[1;33mInstall it using:\033[0m \033[1;36mcurl https://mise.run | sh\033[0m"
+    echo -e "Or check out more at \033[4;34mhttps://mise.jdx.dev\033[0m"
 fi
+
+# Aliases
+alias sudovim='sudo $(asdf which nvim)'
 
 # for viewing images in neovim
 # if ! command -v magick >/dev/null 2>&1; then
@@ -82,10 +98,6 @@ fi
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="$HOME/bin:$PATH"
-alias sudovim='sudo $(asdf which nvim)'
-
-# Activate mise for environment management
-eval "$(~/.local/bin/mise activate bash)"
 
 popd > /dev/null
 
