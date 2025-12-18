@@ -1,3 +1,4 @@
 .config/tmux/plugins
 .lume_shellrc
 !.config/nvim.bak
+personal/.api-keys.sh
