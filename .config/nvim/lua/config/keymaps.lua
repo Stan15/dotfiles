@@ -3,11 +3,15 @@
 -- Add any additional keymaps here
 local map = vim.keymap.set
 
--- Move to window using the <ctrl> hjkl keys
+-- Tmux: Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<cmd>lua require('tmux').move_left()<cr>", { desc = "Go to Left Window", remap = true })
 map("n", "<C-j>", "<cmd>lua require('tmux').move_bottom()<cr>", { desc = "Go to Lower Window", remap = true })
 map("n", "<C-k>", "<cmd>lua require('tmux').move_top()<cr>", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<cmd>lua require('tmux').move_right()<cr>", { desc = "Go to Right Window", remap = true })
+
+-- Yank (copy) to system clipboard
+map({ "n", "v" }, "<Leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to system clipboard" })
+map({ "n" }, "<Leader>Y", '"+Y', { noremap = true, silent = true, desc = "Yank line to system clipboard" })
 
 -- toggle dap ui (but reset view on open)
 map("n", "<leader>dU", "<cmd>lua require('dapui').open({reset=true})<cr>", { desc = "Dap UI (reset)" })
@@ -38,7 +42,7 @@ map({ "n", "v" }, "<leader>yP", function()
   stansutils.copy_file_reference({ full = true, line = true })
 end)
 
--- render
+-- rendering
 local render_keymap = "<leader>r"
 -- markdown-preview
 vim.api.nvim_create_autocmd("FileType", {
