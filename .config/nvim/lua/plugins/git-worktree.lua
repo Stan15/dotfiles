@@ -1,5 +1,28 @@
+local zymewire_add_env_symlink_hook = function(op, metadata)
+  local Worktree = require("git-worktree")
+  if op == "create" then
+    local worktree_path = Worktree.get_worktree_path(metadata.path)
+    -- Use plain string matching (4th param = true) to avoid pattern interpretation
+    if string.find(worktree_path, "zymewire-rails-app", 1, true) then
+      local source = vim.fn.expand("~/projects/support_files/rails_env_variables.env")
+      local target = worktree_path .. "/.env"
+      local result = vim.fn.system({ "ln", "-s", source, target })
+      if vim.v.shell_error ~= 0 then
+        vim.notify("Zymewire .env symlink failed: " .. result, vim.log.levels.ERROR)
+      else
+        vim.notify("Zymewire .env symlink created at " .. target, vim.log.levels.INFO)
+      end
+    end
+  end
+end
+
 return {
   "ThePrimeagen/git-worktree.nvim",
+  dependencies = {
+    "nvim-telescope/telescope.nvim",
+    "nvim-lua/plenary.nvim",
+  },
+  lazy = false,
   keys = {
     {
       "<leader>gwl",
@@ -26,19 +49,12 @@ return {
   },
 
   config = function()
-    require("git-worktree").setup()
-    require("lazyvim.util").on_load("telescope.nvim", function()
-      require("telescope").load_extension("git_worktree")
-    end)
-
     local Worktree = require("git-worktree")
-    Worktree.on_tree_change(function(op, metadata)
-      if op == Worktree.Operations.Create then
-        if string.find(metadata.path, "zymewire-rails-app") then
-          vim.notify("Yo! New worktree: " .. metadata.path)
-          vim.fn.system("ln -s ~/projects/support_files/rails_env_variables.env " .. metadata.path .. "/.env")
-        end
-      end
-    end)
+    Worktree.setup()
+    require("telescope").load_extension("git_worktree")
+
+    -- Register callback
+    Worktree.on_tree_change(zymewire_add_env_symlink_hook)
+    vim.notify("git-worktree: callback registered", vim.log.levels.INFO)
   end,
 }
