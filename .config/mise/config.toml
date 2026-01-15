@@ -1,3 +1,4 @@
 [tools]
 bob = "latest"
+fzf = "latest"
 neovim = "nightly"

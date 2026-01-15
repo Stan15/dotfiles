@@ -10,8 +10,8 @@ map("n", "<C-k>", "<cmd>lua require('tmux').move_top()<cr>", { desc = "Go to Upp
 map("n", "<C-l>", "<cmd>lua require('tmux').move_right()<cr>", { desc = "Go to Right Window", remap = true })
 
 -- Yank (copy) to system clipboard
-map({ "n", "v" }, "<Leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to system clipboard" })
-map({ "n" }, "<Leader>Y", '"+Y', { noremap = true, silent = true, desc = "Yank line to system clipboard" })
+map({ "n", "v" }, "<Leader>y", '"+y', { noremap = true, desc = "Yank to system clipboard" })
+map({ "n" }, "<Leader>Y", '"+Y', { noremap = true, desc = "Yank line to system clipboard" })
 
 -- toggle dap ui (but reset view on open)
 map("n", "<leader>dU", "<cmd>lua require('dapui').open({reset=true})<cr>", { desc = "Dap UI (reset)" })
@@ -37,7 +37,7 @@ map("n", "<leader>id", image_utils.delete_file, { desc = "[P](macOS) Delete imag
 local stansutils = require("stansutils")
 map({ "n", "v" }, "<leader>yp", function()
   stansutils.copy_file_reference({ full = false, line = true })
-end)
+end, { desc = "" })
 map({ "n", "v" }, "<leader>yP", function()
   stansutils.copy_file_reference({ full = true, line = true })
 end)
@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
       "n",
       render_keymap,
       "<cmd>MarkdownPreviewToggle<cr>",
-      { desc = "Render Markdown", noremap = true, silent = true }
+      { desc = "Render Markdown", noremap = true }
     )
   end,
 })
@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd("FileType", {
       "n",
       render_keymap,
       "<cmd>PlantumlOpen<cr>",
-      { desc = "Render PlantUML", noremap = true, silent = true }
+      { desc = "Render PlantUML", noremap = true }
     )
   end,
 })
