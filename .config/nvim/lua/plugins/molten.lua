@@ -1,16 +1,16 @@
 local function find_project_root()
   local git_dir = vim.fn.finddir(".git", ".;")
-  return git_dir ~= "" and vim.fn.fnamemodify(git_dir, ":h:p") or vim.fn.getcwd()
+  return git_dir ~= "" and vim.fn.fnamemodify(git_dir, ":p:h") or vim.fn.getcwd()
 end
 
 local function find_nearest_venv()
-  local active_venv = vim.env.VIRTUAL_ENV or vim.env.CONDA_PREFIX
+  local active_venv = vim.fn.fnamemodify(vim.env.VIRTUAL_ENV or vim.env.CONDA_PREFIX, ":h:p")
   if active_venv and active_venv ~= "" and vim.fn.isdirectory(active_venv) == 1 then
     return active_venv
   end
   local root = find_project_root()
   local venv = vim.fn.finddir(".venv", ".;" .. root)
-  return venv ~= "" and vim.fn.fnamemodify(venv, ":p") or nil
+  return venv ~= "" and vim.fn.fnamemodify(venv, ":p:h") or nil
 end
 
 local function find_best_venv_location_candidate()
@@ -56,6 +56,7 @@ end
 local function ensure_kernel_registered(venv_path, on_success)
   local name = create_kernel_name(venv_path)
   if is_kernel_registered(name) then
+    on_success(name)
     return
   end
   vim.notify("Registering kernel as '" .. name .. "'...")
@@ -84,8 +85,7 @@ local function do_install_ipykernel(venv_path, on_success)
     on_exit = function(_, code)
       vim.schedule(function()
         if code == 0 then
-          ensure_kernel_registered(venv_path)
-          on_success(venv_path)
+          ensure_kernel_registered(venv_path, on_success)
         else
           local msg = table.concat(stderr, "\n")
           vim.notify("Failed to install ipykernel:\n" .. msg, vim.log.levels.ERROR)
@@ -97,8 +97,7 @@ end
 
 local function setup_molten_kernel(venv_path, ask, on_success)
   if has_ipykernel(venv_path) then
-    ensure_kernel_registered(venv_path)
-    on_success()
+    ensure_kernel_registered(venv_path, on_success)
     return
   end
 
@@ -132,7 +131,9 @@ local function setup_notebook_environment()
       end
       local venv_path = find_nearest_venv()
       if venv_path then
-        setup_molten_kernel(venv_path, true)
+        setup_molten_kernel(venv_path, true, function(kernel_name)
+          molten_init_kernel(kernel_name)
+        end)
         return
       end
 
@@ -142,6 +143,7 @@ local function setup_notebook_environment()
         setup_molten_kernel(new_venv, false, function(kernel_name)
           molten_init_kernel(kernel_name)
         end)
+      else
       end
     end,
   })
