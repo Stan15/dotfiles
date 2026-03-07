@@ -17,20 +17,74 @@ local function find_best_venv_location_candidate()
   return find_project_root() .. "/.venv"
 end
 
+local function pip_cmd(venv_path)
+  local uv = vim.fn.exepath("uv")
+  if uv ~= "" then
+    return uv .. " pip install --python " .. venv_path
+  end
+  return venv_path .. "/bin/python -m pip install"
+end
+
 local function has_ipykernel(venv_path)
-  vim.fn.system(venv_path .. "/bin/pip show ipykernel 2>/dev/null")
+  local uv = vim.fn.exepath("uv")
+  if uv ~= "" then
+    vim.fn.system(uv .. " pip show --python " .. venv_path .. "/bin/python ipykernel 2>/dev/null")
+  else
+    vim.fn.system(venv_path .. "/bin/python -m pip show ipykernel 2>/dev/null")
+  end
   return vim.v.shell_error == 0
+end
+
+local function kernel_name(venv_path)
+  return vim.fn.fnamemodify(venv_path, ":h:t")
+end
+
+local function is_kernel_registered(name)
+  local paths = {
+    vim.fn.expand("~/.local/share/jupyter/kernels/") .. name,
+    vim.fn.expand("~/Library/Jupyter/kernels/") .. name,
+    vim.fn.expand("~/AppData/Roaming/jupyter/kernels/") .. name,
+  }
+  for _, path in ipairs(paths) do
+    if vim.fn.isdirectory(path) == 1 then return true end
+  end
+  return false
+end
+
+local function ensure_kernel_registered(venv_path)
+  local name = kernel_name(venv_path)
+  if is_kernel_registered(name) then
+    vim.notify("Using kernel '" .. name .. "'")
+    return
+  end
+  vim.notify("Registering kernel as '" .. name .. "'...")
+  vim.fn.jobstart(venv_path .. "/bin/python -m ipykernel install --user --name " .. name, {
+    on_exit = function(_, code)
+      vim.schedule(function()
+        if code == 0 then
+          vim.notify("Kernel '" .. name .. "' registered")
+        else
+          vim.notify("Failed to register kernel", vim.log.levels.ERROR)
+        end
+      end)
+    end,
+  })
 end
 
 local function do_install_ipykernel(venv_path)
   vim.notify("Installing ipykernel in " .. venv_path .. "...")
-  vim.fn.jobstart(venv_path .. "/bin/pip install ipykernel", {
+  local stderr = {}
+  vim.fn.jobstart(pip_cmd(venv_path) .. " ipykernel", {
+    stderr_buffered = true,
+    on_stderr = function(_, data) stderr = data end,
     on_exit = function(_, code)
       vim.schedule(function()
         if code == 0 then
           vim.notify("ipykernel installed successfully")
+          ensure_kernel_registered(venv_path)
         else
-          vim.notify("Failed to install ipykernel", vim.log.levels.ERROR)
+          local msg = table.concat(stderr, "\n")
+          vim.notify("Failed to install ipykernel:\n" .. msg, vim.log.levels.ERROR)
         end
       end)
     end,
@@ -39,17 +93,14 @@ end
 
 local function install_molten_project_dependencies(venv_path, ask)
   if has_ipykernel(venv_path) then
+    ensure_kernel_registered(venv_path)
     return
   end
 
   if ask then
-    vim.ui.select({ "Yes", "No" }, {
-      prompt = "Install ipykernel in " .. venv_path .. "?",
-    }, function(choice)
-      if choice == "Yes" then
-        do_install_ipykernel(venv_path)
-      end
-    end)
+    if vim.fn.confirm("Install ipykernel in " .. venv_path .. "?", "&Yes\n&No") == 1 then
+      do_install_ipykernel(venv_path)
+    end
   else
     do_install_ipykernel(venv_path)
   end
@@ -74,13 +125,11 @@ local function setup_notebook_environment()
         return
       end
 
-      vim.ui.select({ "Yes", "No" }, { prompt = "No venv found. Create one to run notebooks?" }, function(choice)
-        if choice == "Yes" then
-          local new_venv = find_best_venv_location_candidate()
-          create_venv(new_venv)
-          install_molten_project_dependencies(new_venv, false)
-        end
-      end)
+      if vim.fn.confirm("No venv found. Create one to run notebooks?", "&Yes\n&No") == 1 then
+        local new_venv = find_best_venv_location_candidate()
+        create_venv(new_venv)
+        install_molten_project_dependencies(new_venv, false)
+      end
     end,
   })
 end
