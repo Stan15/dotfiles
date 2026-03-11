@@ -10,6 +10,7 @@ return {
       --   mac: pngpaste
       --   linux: xclip (X11) or wl-clipboard (wayland)
       doc = {
+        enabled = true,
         inline = false,
         float = true,
       },

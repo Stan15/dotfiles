@@ -4,13 +4,18 @@ local function find_project_root()
 end
 
 local function find_nearest_venv()
-  local active_venv = vim.fn.fnamemodify(vim.env.VIRTUAL_ENV or vim.env.CONDA_PREFIX, ":h:p")
-  if active_venv and active_venv ~= "" and vim.fn.isdirectory(active_venv) == 1 then
+  -- VIRTUAL_ENV/CONDA_PREFIX are already absolute paths set by activate scripts
+  -- just strip any accidental trailing slash
+  local active_venv = (vim.env.VIRTUAL_ENV or vim.env.CONDA_PREFIX or ""):gsub("/$", "")
+  if active_venv ~= "" and vim.fn.isdirectory(active_venv) == 1 then
     return active_venv
   end
   local root = find_project_root()
   local venv = vim.fn.finddir(".venv", ".;" .. root)
-  return venv ~= "" and vim.fn.fnamemodify(venv, ":p:h") or nil
+  if venv == "" then return nil end
+  -- finddir returns a relative path to an existing dir, so :p adds trailing slash
+  -- strip it to get a clean absolute path: /abs/path/.venv
+  return vim.fn.fnamemodify(venv, ":p"):gsub("/$", "")
 end
 
 local function find_best_venv_location_candidate()
@@ -118,8 +123,11 @@ local function create_venv(path)
 end
 
 local function molten_init_kernel(kernel_name)
-  vim.notify("Using kernel" .. kernel_name .. "...")
-  vim.cmd(("MoltenInit %s"):format(kernel_name))
+  vim.notify("Using kernel '" .. kernel_name .. "'")
+  local ok, err = pcall(vim.cmd, ("MoltenInit %s"):format(kernel_name))
+  if not ok then
+    vim.notify("MoltenInit failed — try :UpdateRemotePlugins and restart", vim.log.levels.ERROR)
+  end
 end
 
 local function setup_notebook_environment()
@@ -151,13 +159,14 @@ end
 
 return {
   "benlubas/molten-nvim",
-  version = "^1.0.0",
   dependencies = { "3rd/image.nvim" },
   build = ":UpdateRemotePlugins",
   init = function()
     vim.g.molten_image_provider = "snacks.nvim"
     vim.g.molten_output_win_max_height = 20
     vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
+    vim.g.molten_output_show_more = true
+    vim.g.molten_virt_text_output = true
   end,
   config = function()
     setup_notebook_environment()
