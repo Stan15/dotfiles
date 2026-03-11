@@ -1,0 +1,75 @@
+local link_work_env_vars = function(worktree_path)
+  vim.notify("worktree: sym-linking environment vars...", vim.log.levels.INFO)
+
+  local source = vim.fn.expand(vim.env.WORK_ENVIRONMENT_VARS_PATH)
+  local target = worktree_path .. "/.env"
+  local result = vim.fn.system({ "ln", "-s", source, target })
+  if vim.v.shell_error ~= 0 then
+    vim.notify("worktree: work .env symlink failed: " .. result, vim.log.levels.ERROR)
+  else
+    vim.notify("worktree: work .env symlink created at " .. target, vim.log.levels.INFO)
+  end
+end
+
+local create_log_directory = function(worktree_path)
+  vim.notify("git-worktree: creating log directory...", vim.log.levels.INFO)
+
+  local log_dir = worktree_path .. "/log"
+  local result = vim.fn.mkdir(log_dir, "p")
+  if result == 0 then
+    vim.notify("worktree: log directory creation failed", vim.log.levels.ERROR)
+  else
+    vim.notify("worktree: log directory created at " .. log_dir, vim.log.levels.INFO)
+  end
+end
+
+local init_submodules = function(worktree_path)
+  vim.notify("worktree: initializing git submodules...", vim.log.levels.INFO)
+
+  local result = vim.fn.system({ "git", "-C", worktree_path, "submodule", "update", "--init", "--recursive" })
+  if vim.v.shell_error ~= 0 then
+    vim.notify("worktree: could not initialize git submodules: " .. result, vim.log.levels.ERROR)
+  else
+    vim.notify("worktree: git submodules initialized.", vim.log.levels.INFO)
+  end
+end
+
+local is_work_repo = function(worktree_path)
+  local remote = vim.fn.system({ "git", "-C", worktree_path, "config", "--get", "remote.origin.url" })
+  if vim.v.shell_error ~= 0 then
+    return false
+  end
+  local expected_remote = vim.env.WORK_REPO_REMOTE
+  if not expected_remote then
+    return false
+  end
+  return vim.trim(remote) == expected_remote
+end
+
+local setup_work_worktree = function(worktree_path)
+  if is_work_repo(worktree_path) then
+    link_work_env_vars(worktree_path)
+    create_log_directory(worktree_path)
+    init_submodules(worktree_path)
+  end
+end
+
+return {
+  "Stan15/worktrees.nvim",
+  event = "VeryLazy",
+  config = function()
+    local worktrees = require("worktrees")
+    worktrees.setup({})
+
+    vim.keymap.set("n", "<leader>wtc", function()
+      worktrees.create()
+      if is_work_repo(worktree_path) then
+      setup_work_repo()
+      if is_work_repo(worktree_path) then
+      end
+      setup_work_worktree()
+    end)
+    vim.keymap.set("n", "<leader>wtd", worktrees.switch)
+    vim.keymap.set("n", "<leader>wts", worktrees.delete)
+  end,
+}
