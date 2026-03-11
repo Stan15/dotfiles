@@ -1,5 +1,6 @@
 [tools]
 bob = "latest"
+fzf = "latest"
 "cargo:viu" = "latest"
 neovim = "nightly"
 uv = "latest"
