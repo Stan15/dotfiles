@@ -2,3 +2,4 @@
 bob = "latest"
 fzf = "latest"
 neovim = "nightly"
+prettier = "latest"
