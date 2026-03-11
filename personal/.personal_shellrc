@@ -1,4 +1,4 @@
 #!/bin/sh
 
-alias zyssh='ssh stan@100.87.31.32'
-# alias zyssh='ssh -D 8080 stan@192.168.1.200'
+# llama.cpp custom build path
+export PATH="/Users/stans/llama-build/bin:$PATH"
