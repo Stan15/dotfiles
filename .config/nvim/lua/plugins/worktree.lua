@@ -55,21 +55,27 @@ local setup_work_worktree = function(worktree_path)
 end
 
 return {
-  "Stan15/worktrees.nvim",
+  "Stan15/worktree.nvim",
   event = "VeryLazy",
   config = function()
-    local worktrees = require("worktrees")
-    worktrees.setup({})
-
-    vim.keymap.set("n", "<leader>wtc", function()
-      worktrees.create()
-      if is_work_repo(worktree_path) then
-      setup_work_repo()
-      if is_work_repo(worktree_path) then
-      end
-      setup_work_worktree()
-    end)
-    vim.keymap.set("n", "<leader>wtd", worktrees.switch)
-    vim.keymap.set("n", "<leader>wts", worktrees.delete)
+    require("worktrees").setup({
+      path_template = function(branch)
+        -- Handles 'username/team-123-description' or 'team-123-description'
+        local slug = branch:match(".*/(.+)") or branch
+        -- Captures everything after 'alphanumeric-digits-'
+        return slug:match("^%w+%-%d+%-(.+)") or slug
+      end,
+      on_create = function(path)
+        setup_work_worktree(path)
+      end,
+      on_switch = function(from_path, to_path)
+        vim.notify("worktree: switched from " .. vim.fn.fnamemodify(from_path, ":t") .. " to " .. vim.fn.fnamemodify(to_path, ":t"), vim.log.levels.INFO)
+      end,
+      mappings = {
+        create = "<leader>wtc",
+        switch = "<leader>wts",
+        delete = "<leader>wtd",
+      },
+    })
   end,
 }
