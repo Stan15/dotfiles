@@ -36,5 +36,8 @@ return {
       "suketa/nvim-dap-ruby",
       { "theHamsta/nvim-dap-virtual-text", opts = {} },
     },
+    config = function()
+      require("nvim-dap-ruby").setup()
+    end,
   },
 }

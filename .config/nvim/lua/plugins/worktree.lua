@@ -55,7 +55,7 @@ local setup_work_worktree = function(worktree_path)
 end
 
 return {
-  "Stan15/worktree.nvim",
+  "Stan15/worktrees.nvim",
   event = "VeryLazy",
   config = function()
     require("worktrees").setup({
@@ -69,7 +69,13 @@ return {
         setup_work_worktree(path)
       end,
       on_switch = function(from_path, to_path)
-        vim.notify("worktree: switched from " .. vim.fn.fnamemodify(from_path, ":t") .. " to " .. vim.fn.fnamemodify(to_path, ":t"), vim.log.levels.INFO)
+        vim.notify(
+          "worktree: switched from "
+            .. vim.fn.fnamemodify(from_path, ":t")
+            .. " to "
+            .. vim.fn.fnamemodify(to_path, ":t"),
+          vim.log.levels.INFO
+        )
       end,
       mappings = {
         create = "<leader>wtc",
