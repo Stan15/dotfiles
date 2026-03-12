@@ -7,7 +7,7 @@ local link_work_env_vars = function(worktree_path)
   if vim.v.shell_error ~= 0 then
     vim.notify("worktree: work .env symlink failed: " .. result, vim.log.levels.ERROR)
   else
-    vim.notify("worktree: work .env symlink created at " .. target, vim.log.levels.INFO)
+    vim.notify("worktree: work .env symlink created at " .. target, vim.log.levels.DEBUG)
   end
 end
 
@@ -19,7 +19,7 @@ local create_log_directory = function(worktree_path)
   if result == 0 then
     vim.notify("worktree: log directory creation failed", vim.log.levels.ERROR)
   else
-    vim.notify("worktree: log directory created at " .. log_dir, vim.log.levels.INFO)
+    vim.notify("worktree: log directory created at " .. log_dir, vim.log.levels.DEBUG)
   end
 end
 
@@ -30,7 +30,7 @@ local init_submodules = function(worktree_path)
   if vim.v.shell_error ~= 0 then
     vim.notify("worktree: could not initialize git submodules: " .. result, vim.log.levels.ERROR)
   else
-    vim.notify("worktree: git submodules initialized.", vim.log.levels.INFO)
+    vim.notify("worktree: git submodules initialized.", vim.log.levels.DEBUG)
   end
 end
 
@@ -47,11 +47,11 @@ local is_work_repo = function(worktree_path)
 end
 
 local setup_work_worktree = function(worktree_path)
-  if is_work_repo(worktree_path) then
-    link_work_env_vars(worktree_path)
-    create_log_directory(worktree_path)
-    init_submodules(worktree_path)
-  end
+  if not is_work_repo(worktree_path) then return false end
+  link_work_env_vars(worktree_path)
+  create_log_directory(worktree_path)
+  init_submodules(worktree_path)
+  return true
 end
 
 return {
@@ -66,7 +66,9 @@ return {
         return slug:match("^%w+%-%d+%-(.+)") or slug
       end,
       on_create = function(path)
-        setup_work_worktree(path)
+        if setup_work_worktree(path) then
+          vim.notify("worktree: work environment set up at " .. path, vim.log.levels.INFO)
+        end
       end,
       on_switch = function(from_path, to_path)
         vim.notify(
