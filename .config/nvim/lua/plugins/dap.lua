@@ -37,7 +37,7 @@ return {
       { "theHamsta/nvim-dap-virtual-text", opts = {} },
     },
     config = function()
-      require("nvim-dap-ruby").setup()
+      require("dap-ruby").setup()
     end,
   },
 }
