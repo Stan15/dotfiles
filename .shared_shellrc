@@ -98,7 +98,7 @@ if ! command -v ~/.local/bin/mise &> /dev/null; then
 fi
 
 # Aliases
-alias sudovim='sudo $(asdf which nvim)'
+alias sudovim='sudo $(mise which nvim)'
 
 # for viewing images in neovim
 # if ! command -v magick >/dev/null 2>&1; then

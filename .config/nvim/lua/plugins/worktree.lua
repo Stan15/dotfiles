@@ -46,11 +46,23 @@ local is_work_repo = function(worktree_path)
   return vim.trim(remote) == expected_remote
 end
 
+local export_i18n_translations = function(worktree_path)
+  vim.notify("worktree: exporting i18n translations...", vim.log.levels.INFO)
+
+  local result = vim.fn.system({ "bash", "-c", "cd " .. vim.fn.shellescape(worktree_path) .. " && bundle exec rake i18n:js:export" })
+  if vim.v.shell_error ~= 0 then
+    vim.notify("worktree: i18n:js:export failed: " .. result, vim.log.levels.ERROR)
+  else
+    vim.notify("worktree: i18n translations exported.", vim.log.levels.DEBUG)
+  end
+end
+
 local setup_work_worktree = function(worktree_path)
   if not is_work_repo(worktree_path) then return false end
   link_work_env_vars(worktree_path)
   create_log_directory(worktree_path)
   init_submodules(worktree_path)
+  export_i18n_translations(worktree_path)
   return true
 end
 
