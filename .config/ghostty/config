@@ -1,2 +1,2 @@
-keybind = shift+enter=text:\x1b\r
+keybind = shift+enter=text:\x1b[13;2u
 macos-option-as-alt = true
