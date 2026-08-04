@@ -1,0 +1,49 @@
+onboarding = false
+[keys]
+prefix = "ctrl+space"
+
+[keys.indexed]
+agents = "ctrl" # ctrl+1..9 focuses agents directly
+
+[theme]
+name = "vesper"
+auto_switch = false
+
+[ui]
+pane_gaps = false
+pane_borders = false
+sidebar_collapsed_mode = "hidden"
+
+# Floating Terminal
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "exec \"${SHELL:-sh}\""
+description = "scratch terminal"
+width = "80%"
+height = "80%"
+
+# Navigation
+[[keys.command]]
+key = "alt+h"
+type = "plugin_action"
+command = "willfish.herdr-navigator.left"
+description = "navigate left"
+
+[[keys.command]]
+key = "alt+j"
+type = "plugin_action"
+command = "willfish.herdr-navigator.down"
+description = "navigate down"
+
+[[keys.command]]
+key = "alt+k"
+type = "plugin_action"
+command = "willfish.herdr-navigator.up"
+description = "navigate up"
+
+[[keys.command]]
+key = "alt+l"
+type = "plugin_action"
+command = "willfish.herdr-navigator.right"
+description = "navigate right"

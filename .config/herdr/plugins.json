@@ -1,0 +1,283 @@
+[
+  {
+    "plugin_id": "claude-auto-retry",
+    "name": "Claude Auto Retry",
+    "version": "1.0.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Wait out Anthropic rate limits and auto-resume Claude Code panes, herdr-native (no tmux, no shell wrapper).",
+    "manifest_path": "/Users/stans/dotfiles/.config/herdr/plugins/github/claude-auto-retry-fadcd8f12448/herdr-plugin.toml",
+    "plugin_root": "/Users/stans/dotfiles/.config/herdr/plugins/github/claude-auto-retry-fadcd8f12448",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "actions": [
+      {
+        "id": "arm",
+        "title": "Claude Auto Retry: watch this pane",
+        "description": "Attach an auto-retry monitor to the focused Claude Code pane.",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "arm"
+        ]
+      },
+      {
+        "id": "logs",
+        "title": "Claude Auto Retry: logs",
+        "description": "Print recent auto-retry log lines.",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "logs"
+        ]
+      },
+      {
+        "id": "status",
+        "title": "Claude Auto Retry: status",
+        "description": "Show active monitors and recent activity.",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "status"
+        ]
+      },
+      {
+        "id": "stop",
+        "title": "Claude Auto Retry: stop all",
+        "description": "Stop all auto-retry monitors.",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "stop"
+        ]
+      },
+      {
+        "id": "watch-all",
+        "title": "Claude Auto Retry: watch all Claude panes",
+        "description": "Attach an auto-retry monitor to every running Claude Code pane.",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "watch-all"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "pane.agent_detected",
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "hook-agent-detected"
+        ]
+      },
+      {
+        "on": "pane.agent_status_changed",
+        "command": [
+          "/bin/sh",
+          "launch.sh",
+          "hook-agent-detected"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "mo-arvan",
+      "repo": "herdr-claude-auto-retry",
+      "resolved_commit": "5c43811e3fd94f33e271c3550a378ce2d4bb43c2",
+      "managed_path": "/Users/stans/.config/herdr/plugins/github/claude-auto-retry-fadcd8f12448",
+      "installed_unix_ms": 1785270826997
+    }
+  },
+  {
+    "plugin_id": "persiyanov.reviewr",
+    "name": "reviewr",
+    "version": "0.24.1",
+    "min_herdr_version": "0.7.0",
+    "description": "Review agent-written diffs beside the chat and add line comments to the agent input.",
+    "manifest_path": "/Users/stans/dotfiles/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8/herdr-plugin.toml",
+    "plugin_root": "/Users/stans/dotfiles/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "build": [
+      {
+        "command": [
+          "bash",
+          "herdr/install.sh"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "close",
+        "title": "reviewr: close sidebar",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "herdr/sidebar.sh",
+          "close"
+        ]
+      },
+      {
+        "id": "open",
+        "title": "reviewr: open sidebar",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "herdr/sidebar.sh",
+          "open"
+        ]
+      },
+      {
+        "id": "toggle",
+        "title": "reviewr: toggle sidebar",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "herdr/sidebar.sh",
+          "toggle"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "worktree.created",
+        "command": [
+          "bash",
+          "herdr/sidebar.sh",
+          "auto-open"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "sidebar",
+        "title": "reviewr",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec \"$HERDR_PLUGIN_ROOT/bin/herdr-reviewr\""
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "persiyanov",
+      "repo": "herdr-reviewr",
+      "resolved_commit": "27309ecb68435700d58dffd32d518ed998998462",
+      "managed_path": "/Users/stans/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8",
+      "installed_unix_ms": 1785041539730
+    }
+  },
+  {
+    "plugin_id": "willfish.herdr-navigator",
+    "name": "Navigator",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Vim/Neovim-aware Herdr pane navigation actions",
+    "manifest_path": "/Users/stans/dotfiles/.config/herdr/plugins/github/willfish.herdr-navigator-0ecc243c00f9/herdr-plugin.toml",
+    "plugin_root": "/Users/stans/dotfiles/.config/herdr/plugins/github/willfish.herdr-navigator-0ecc243c00f9",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "build": [
+      {
+        "command": [
+          "cargo",
+          "build",
+          "--release"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "down",
+        "title": "Navigate down",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "bin/herdr-navigator",
+          "down",
+          "alt+j"
+        ]
+      },
+      {
+        "id": "left",
+        "title": "Navigate left",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "bin/herdr-navigator",
+          "left",
+          "alt+h"
+        ]
+      },
+      {
+        "id": "right",
+        "title": "Navigate right",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "bin/herdr-navigator",
+          "right",
+          "alt+l"
+        ]
+      },
+      {
+        "id": "up",
+        "title": "Navigate up",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "bin/herdr-navigator",
+          "up",
+          "alt+k"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "willfish",
+      "repo": "herdr-navigator",
+      "resolved_commit": "6fe572538a86287a8076e0580bbe217c369f8c24",
+      "managed_path": "/Users/stans/.config/herdr/plugins/github/willfish.herdr-navigator-0ecc243c00f9",
+      "installed_unix_ms": 1785270339082
+    }
+  }
+]
