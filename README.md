@@ -25,6 +25,14 @@ then use GNU stow to create symlinks
 stow .
 ```
 
+Note: herdr writes runtime state (logs, sockets, session, installed plugins) into its
+config directory, so that directory must not become a folded stow symlink. Create it as
+a real directory *before* stowing, and stow will link only `config.toml` into it:
+```
+mkdir -p ~/.config/herdr
+stow .
+```
+
 ## Optional tools Setup
 ### Neovim
 Install the latest version of neovim (I believe this config requires above 0.9.0)

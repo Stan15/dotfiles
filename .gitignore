@@ -1,4 +1,11 @@
 .config/tmux/plugins
+.config/herdr/plugins
+.config/herdr/*.log
+.config/herdr/*.sock
+.config/herdr/.plugins.lock
+.config/herdr/session.json
+.config/herdr/plugins.json
+.config/herdr/release-notes.json
 .lume_shellrc
 !.config/nvim.bak
 personal/.api-keys.sh
