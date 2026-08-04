@@ -24,6 +24,20 @@ pushd $dotfiles_path > /dev/null || exit 1
 
 source $dotfiles_path/scripts/load_dotfiles_env.sh $dotfiles_path/dotfiles.toml
 
+# Env-specific ~/.claude/ config (agents, skills, etc.) lives at
+# <env>/.claude/ and gets symlinked into ~/.claude/ via stow when that env
+# is active. current_env is stripped of stray quotes defensively.
+clean_current_env="${current_env//\"/}"
+if [[ -d "$dotfiles_path/$clean_current_env/.claude" ]]; then
+  stow -R -d "$dotfiles_path/$clean_current_env" -t "$HOME/.claude" .claude
+fi
+for other_env_dir in "$dotfiles_path"/*/.claude; do
+  other_env=$(basename "$(dirname "$other_env_dir")")
+  if [[ "$other_env" != "$clean_current_env" ]]; then
+    stow -D -d "$dotfiles_path/$other_env" -t "$HOME/.claude" .claude 2>/dev/null
+  fi
+done
+
 # start up ssh-agent and add personal github key
 eval "$(ssh-agent -s)" > /dev/null
 
